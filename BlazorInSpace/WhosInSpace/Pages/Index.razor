@@ -1,0 +1,28 @@
+﻿@page "/"
+@using WhosInSpace.Models;
+@using WhosInSpace.Services;
+@inject IAstrosService AstrosService
+
+<h3>Spacecraft</h3>
+
+<ul>
+    @foreach (var name in Spacecraft)
+    {
+        <li><a href="/craft/@name">@name</a></li>
+    }
+</ul>
+
+@code {
+    public List<string?> Spacecraft { get; set; } = new List<string?>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var data = await AstrosService.GetAstrosAsync();
+     
+        if (data != null)
+        {
+            Spacecraft = data.People.Select(p => p.Craft).Distinct().OrderBy(p => p).ToList();
+        }
+    }
+}

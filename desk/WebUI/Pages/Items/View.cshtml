@@ -1,0 +1,116 @@
+﻿@page "{itemId:int}"
+@using Desk.Application.Dtos
+@model Desk.WebUI.Pages.Items.ViewModel
+@{
+    ViewData["Title"] = "View Item";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Item!.Name</h1>
+</div>
+
+<div class="row justify-content-center mb-3">
+    <div class="col-8">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="mb-3">
+                    @foreach (var tag in Model.Item.Tags)
+                    {
+                        <span class="badge rounded-pill bg-primary"><a style="color:white;" asp-page="/Tags/Search" asp-route-tagId="@tag.Id">@tag.Name</a></span>
+                    }
+                    <br />
+                    @switch (Model.Item.Location)
+                    {
+                        case ItemLocationEnum.Pile:
+                            <a asp-page="/Items/Pile">@Model.Item.Location</a> <span>-</span> <h6 style="display: inline;">@Html.DisplayTextFor(model => model.Item!.CurrentStatus)</h6>
+                            break;
+                        case ItemLocationEnum.Desk:
+                            <a asp-page="/Items/Desk">@Model.Item.Location</a> <span>-</span> <h6 style="display: inline;">@Html.DisplayTextFor(model => model.Item!.CurrentStatus)</h6>
+                            break;
+                        case ItemLocationEnum.Tabletop:
+                            <a asp-page="/Items/Tabletop">@Model.Item.Location</a> <span>-</span> <h6 style="display: inline;">@Html.DisplayTextFor(model => model.Item!.CurrentStatus)</h6>
+                            break;
+                    }
+                </div>
+                <div class="mb-3">
+                    @Model.Item!.Description
+                </div>
+            </div>
+            <div class="card-footer">
+                <a asp-page="/Items/Edit" asp-route-itemId="@Model.Item!.Id">Edit</a>
+                | <a asp-page="/Items/Delete" asp-route-itemId="@Model.Item!.Id">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mb-3">
+    <div class="col-8">
+        <div class="card mb-3">            
+            @if (Model.Base64EncodedItemImage is not null)
+            {
+                <div class="card-body">
+                    <img class="img-fluid d-block mx-auto" src="data:image/jpeg;base64,@Model.Base64EncodedItemImage">
+                </div>
+                <div class="card-footer">
+                    <a asp-page="/Items/Upload" asp-route-itemId="@Model.Item!.Id">Change</a>
+                    | <a asp-page="/Items/DeleteImage" asp-route-itemid="@Model.Item!.Id">Remove</a>
+                </div>
+            }
+            else
+            {
+                <div class="card-body">
+                    <p>Why not upload an image of your finished work?</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-page="/Items/Upload" asp-route-itemId="@Model.Item!.Id">Upload</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <h1 class="display-6">Log</h1>
+</div>
+
+<div class="row justify-content-center mb-3">
+    <div class="col-8 justify-content-center">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="card-text">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="Form.Comment" class="form-label"></label>
+                            <input asp-for="Form.Comment" class="form-control" />
+                            <span asp-validation-for="Form.Comment" class="text-danger"></span>
+                        </div>
+                        <input type="submit" value="Add" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mb-3">
+    <div class="col-8">
+        @foreach (var comment in Model.Item.TextComments.OrderByDescending(c => c.CreatedOn))
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class=mb-3>
+                        <h6>@comment.CreatedOn.ToString("dd MMM yyyy HH:mm:ss")</h6>
+                    </div>
+                    <div class="mb-3">
+                        @comment.Comment
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

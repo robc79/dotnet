@@ -1,0 +1,33 @@
+﻿@page
+@using Desk.Domain.Entities
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Painting Desk</h1>
+</div>
+
+<div class="row justify-content-center mb-3">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="col-8">
+            <p>Welcome to <em>Painting Desk</em>! From the menu above you can:</p>
+            <ul>
+                <li><a asp-page="/Items/Add">Create miniatures to work on</a>.</li>
+                <li><a asp-page="/Tags/Add">Organise things with tags</a>.</li>
+                <li><a asp-page="/Items/Desk">View your desk</a>.</li>
+            </ul>
+        </div>   
+    }
+    else
+    {
+        <div class="col-8">
+            Welcome to <em>Painting Desk</em>! Here to help you tackle that pile of shame spilling
+            out from your hobby space. Why not <a asp-area="Identity" asp-page="/Account/Register">signup</a> and get started?
+        </div>
+    }
+</div>

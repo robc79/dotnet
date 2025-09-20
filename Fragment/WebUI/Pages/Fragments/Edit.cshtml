@@ -1,0 +1,40 @@
+﻿@page "{fragmentId:int}"
+@model Fragment.WebUI.Pages.Fragments.EditModel
+@{
+    ViewData["Title"] = "View Fragment";
+}
+
+<h1>Edit fragment</h1>
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Form.Text" class="form-label"></label>
+        <textarea asp-for="Form.Text" class="form-control" rows="10"></textarea>
+        <span asp-validation-for="Form.Text" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        @foreach (var tag in Model.TagItems)
+        {
+            <div class="form-check">
+                @if (Model.Form.SelectedTagIds.Contains(int.Parse(tag.Value)))
+                {
+                    <input type="checkbox" value="@tag.Value" name="Form.SelectedTagIds" checked="checked" />
+                }
+                else
+                {
+                    <input type="checkbox" value="@tag.Value" name="Form.SelectedTagIds" />
+                }
+                
+                <label>@tag.Text</label>
+            </div>
+        }
+    </div>
+    <div class="mb-3">
+        <input type="submit" value="Update" class="btn btn-primary" />
+        | <a asp-page="/Fragments/List" asp-route-skip="0">back</a>
+    </div>
+</form>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

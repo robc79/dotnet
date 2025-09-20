@@ -1,0 +1,21 @@
+﻿@page
+@using Desk.WebUI.ViewModels
+@model Desk.WebUI.Pages.Items.PileModel
+@{
+    ViewData["Title"] = "Pile";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Pile of Shame</h1>
+</div>
+
+<div class="row justify-content-center mb-3">
+    <div class="col-8">
+        Your pile of shame is here.
+
+        @foreach (var item in Model.PileItems)
+        {
+            <partial name="_ItemSummaryPartial" model="new ItemSummaryViewModel(item, false)" />
+        }
+    </div>
+</div>

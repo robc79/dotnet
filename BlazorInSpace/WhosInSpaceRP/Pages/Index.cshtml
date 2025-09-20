@@ -1,0 +1,11 @@
+﻿@page
+@model IndexModel
+
+<h3>Spacecraft</h3>
+
+<ul>
+    @foreach (var name in @Model.Spacecraft)
+    {
+        <li><a href="/craft/@name">@name</a></li>
+    }
+</ul>

@@ -1,0 +1,13 @@
+﻿@page "/craft/{craft}"
+@model WhosInSpaceRP.Pages.CraftModel
+
+<h3>Astronauts</h3>
+
+<ul>
+    @foreach (var astro in @Model.Crew)
+    {
+        <li>@astro.Name</li>
+    }
+</ul>
+
+<p><b>Total:</b> @Model.Crew.Count</p>

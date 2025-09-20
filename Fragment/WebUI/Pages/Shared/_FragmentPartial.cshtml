@@ -1,0 +1,21 @@
+@model Fragment.Application.Dtos.TextFragmentDto
+
+<div class="card mb-3">
+    <div class="card-body">
+        <pre class="card-text">@Model.Text</pre>
+    
+        @foreach (var tag in Model.Tags)
+        {
+            <span class="badge rounded-pill bg-primary">@tag.Name</span>
+        }
+
+        <div>
+            <b>Created on:</b> @Model.CreatedOn.ToString("dd-MM-yyyy @ hh:mm");
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a asp-page="/Fragments/Delete" asp-route-fragmentId="@Model.Id">delete</a>
+        | <a asp-page="/Fragments/Edit" asp-route-fragmentId="@Model.Id">edit</a>
+    </div>
+</div>

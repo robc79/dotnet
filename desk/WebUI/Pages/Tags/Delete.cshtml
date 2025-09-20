@@ -1,0 +1,25 @@
+﻿@page "{tagId:int}"
+@model Desk.WebUI.Pages.Tags.DeleteModel
+@{
+    ViewData["Title"] = "Delete Tag";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Delete Tag - @Model.Tag?.Name?</h1>
+</div>
+
+<div class="row justify-content-center mb-3">
+    <div class="card mb-3 col-8 justify-content-center">
+        <div class="card-body">
+            <div class="card-text">
+                This operation cannot be undone.
+            </div>
+        </div>
+        <div class="card-footer">
+            <form method="post">
+                <input type="submit" class="btn btn-danger" value="Delete" />
+                | <a asp-page="/Tags/List">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

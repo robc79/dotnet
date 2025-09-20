@@ -1,0 +1,13 @@
+﻿@page "{tagId:int}"
+@model Fragment.WebUI.Pages.Tags.DeleteModel
+@{
+    ViewData["Title"] = "Delete Tag";
+}
+
+<h1>Delete tag - @Model.Tag.Name</h1>
+
+<p>Are you sure you wish to delete the tag @Model.Tag.Name?</p>
+
+<form method="post">
+    <input type="submit" class="btn btn-danger" value="Confirm" /> | <a asp-page="/Tags/List">Back</a>
+</form>

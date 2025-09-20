@@ -1,0 +1,38 @@
+@using Desk.Application.Dtos
+@model Desk.WebUI.ViewModels.ItemSummaryViewModel
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="mb-3">
+            <a asp-page="/Items/View" asp-route-itemId="@Model.Dto.Id">@Model.Dto.Name</a>
+            
+            @foreach (var tag in Model.Dto.Tags)
+            {
+                <span class="badge rounded-pill bg-primary"><a style="color:white;" asp-page="/Tags/Search" asp-route-tagId="@tag.Id">@tag.Name</a></span>
+            }
+            <br />
+            @if (Model.LinkToLocation)
+            {
+                switch (Model.Dto.Location)
+                {
+                    case ItemLocationEnum.Pile:
+                        <a asp-page="/Items/Pile">@Model.Dto.Location</a> <span>-</span> <h6 style="display: inline;">@Html.DisplayTextFor(model => model.Dto.CurrentStatus)</h6>
+                        break;
+                    case ItemLocationEnum.Desk:
+                        <a asp-page="/Items/Desk">@Model.Dto.Location</a> <span>-</span> <h6 style="display: inline;">@Html.DisplayTextFor(model => model.Dto.CurrentStatus)</h6>
+                        break;
+                    case ItemLocationEnum.Tabletop:
+                        <a asp-page="/Items/Tabletop">@Model.Dto.Location</a> <span>-</span> <h6 style="display: inline;">@Html.DisplayTextFor(model => model.Dto.CurrentStatus)</h6>
+                        break;
+                }
+            }
+            else
+            {
+                <h6>@Html.DisplayTextFor(model => model.Dto.CurrentStatus)</h6>
+            }
+        </div>
+        <div class="mb-3">
+            @Model.Dto.Description
+        </div>
+    </div>
+</div>

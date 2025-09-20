@@ -1,0 +1,32 @@
+﻿@page
+@model Fragment.WebUI.Pages.Fragments.AddModel
+@{
+    ViewData["Title"] = "Add fragment";
+}
+
+<h1>Add new fragment</h1>
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Form.Text" class="form-label"></label>
+        <textarea asp-for="Form.Text" class="form-control" rows="10"></textarea>
+        <span asp-validation-for="Form.Text" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        @foreach (var tag in Model.TagItems)
+        {
+            <div class="form-check">
+                <input type="checkbox" value="@tag.Value" name="Form.SelectedTagIds" />
+                <label>@tag.Text</label>
+            </div>
+        }
+    </div>
+    <div class="mb-3">
+        <input type="submit" value="Add" class="btn btn-primary" />
+        | <a asp-page="/Index">back</a>
+    </div>
+</form>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

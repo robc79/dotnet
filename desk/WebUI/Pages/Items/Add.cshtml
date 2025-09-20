@@ -1,0 +1,57 @@
+﻿@page
+@using Desk.Application.Dtos
+@model Desk.WebUI.Pages.Items.AddModel
+@{
+    ViewData["Title"] = "Add Miniature";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Add Miniature</h1>
+</div>
+
+<div class="row justify-content-center mb-3">
+    <div class="card mb-3 col-lg-8 justify-content-center">
+        <div class="card-body">
+            <div class="card-text">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label asp-for="Form.Name" class="form-label"></label>
+                        <input asp-for="Form.Name" class="form-control" />
+                        <span asp-validation-for="Form.Name" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Form.ImageUpload" class="form-label">Image (1MB size max)</label>
+                        <input asp-for="Form.ImageUpload" class="form-control" accept=".jpg, .jpeg" />
+                        <span asp-validation-for="Form.ImageUpload" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Form.Description" class="form-label"></label>
+                        <textarea asp-for="Form.Description" class="form-control" rows="5" style="resize: none;" ></textarea>
+                        <span asp-validation-for="Form.Description" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Form.SelectedLocationId" class="form-label">Location</label>
+                        <select asp-for="Form.SelectedLocationId" asp-items="Html.GetEnumSelectList<ItemLocationEnum>()" class="form-control"></select>
+                        <span asp-validation-for="Form.SelectedLocationId" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Form.SelectedStatusId" class="form-label">Status</label>
+                        <select asp-for="Form.SelectedStatusId" asp-items="Html.GetEnumSelectList<ItemStatusEnum>()" class="form-control"></select>
+                        <span asp-validation-for="Form.SelectedLocationId" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Form.SelectedTagIds" class="form-label">Tags</label>
+                        <select size="3" asp-for="Form.SelectedTagIds" asp-items="Model.TagItems" class="form-control"></select>
+                        <span asp-validation-for="Form.SelectedTagIds" class="text-danger"></span>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Add" />
+                    | <a asp-page="/Index">Home</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

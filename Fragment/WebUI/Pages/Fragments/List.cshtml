@@ -1,0 +1,81 @@
+﻿@page
+@model Fragment.WebUI.Pages.Fragments.ListModel
+@{
+    ViewData["Title"] = "Fragments";
+}
+
+<h1>Fragments</h1>
+
+@if (Model.Fragments.Any())
+{
+    <nav>
+        <ul class="pagination justify-content-center">
+            @if (Model.CurrentSkip == 0)
+            {
+                <li class="page-item disabled">
+                    <a asp-page="/Fragments/List" asp-route-skip="@Model.PrevSkip" class="page-link">Prev</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a asp-page="/Fragments/List" asp-route-skip="@Model.PrevSkip" class="page-link">Prev</a>
+                </li>
+            }
+            @if (Model.NextSkip == Model.CurrentSkip)
+            {
+                <li class="page-item disabled">
+                    <a asp-page="/Fragments/List" asp-route-skip="@Model.NextSkip" class="page-link">Next</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a asp-page="/Fragments/List" asp-route-skip="@Model.NextSkip" class="page-link">Next</a>
+                </li>
+            }
+
+        </ul>
+    </nav>
+
+    <div class="mb-3"></div>
+
+    foreach (var fragment in Model.Fragments)
+    {
+        <partial name="_FragmentPartial" model="@fragment" />
+    }
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            @if (Model.CurrentSkip == 0)
+            {
+                <li class="page-item disabled">
+                    <a asp-page="/Fragments/List" asp-route-skip="@Model.PrevSkip" class="page-link">Prev</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a asp-page="/Fragments/List" asp-route-skip="@Model.PrevSkip" class="page-link">Prev</a>
+                </li>
+            }
+            @if (Model.NextSkip == Model.CurrentSkip)
+            {
+                <li class="page-item disabled">
+                    <a asp-page="/Fragments/List" asp-route-skip="@Model.NextSkip" class="page-link">Next</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a asp-page="/Fragments/List" asp-route-skip="@Model.NextSkip" class="page-link">Next</a>
+                </li>
+            }
+
+        </ul>
+    </nav>
+}
+else
+{
+    <p>No fragments found.</p>
+}
