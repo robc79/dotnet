@@ -3,6 +3,11 @@
 Simple command line tool for picking a random game name from
 [IGDB](https://www.igdb.com/).
 
+## Configuration
+
+The program requires a client id and secret issued by IGDB in order to run. Add
+these values to the `appsettings.json` file.
+
 ## Running
 
 Build the solution using the usual dotnet commands. Run the resulting `.exe`
